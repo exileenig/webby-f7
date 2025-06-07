@@ -42,3 +42,50 @@ function extractCodeBlocks(content) {
 
   return files
 }
+
+// Add this function to generate a file tree visualization
+function generateFileTree(files) {
+  const tree = {}
+
+  // Build tree structure
+  files.forEach((file) => {
+    const parts = file.name.split("/")
+    let current = tree
+
+    parts.forEach((part, i) => {
+      if (i === parts.length - 1) {
+        current[part] = null // Leaf node (file)
+      } else {
+        current[part] = current[part] || {}
+        current = current[part]
+      }
+    })
+  })
+
+  // Generate tree string
+  function renderTree(node, prefix = "", isLast = true, path = "") {
+    let result = ""
+    const entries = Object.entries(node || {})
+
+    if (path) {
+      result += prefix + (isLast ? "└── " : "├── ") + path.split("/").pop() + "\n"
+    }
+
+    if (node === null) return result
+
+    const newPrefix = prefix + (isLast ? "    " : "│   ")
+
+    entries.forEach(([key, value], i) => {
+      const newPath = path ? `${path}/${key}` : key
+      const isLastItem = i === entries.length - 1
+      result += renderTree(value, newPrefix, isLastItem, newPath)
+    })
+
+    return result
+  }
+
+  return renderTree(tree, "", true, "")
+}
+
+// Export the function
+export { generateFileTree }
