@@ -1,0 +1,19 @@
+{
+  "name": "discord-v0-bot",
+  "version": "1.0.0",
+  "description": "Discord bot that generates web apps using v0 API",
+  "main": "bot.js",
+  "type": "module",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "node --watch bot.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "node-fetch": "^3.3.2",
+    "dotenv": "^16.3.1"
+  },
+  "keywords": ["discord", "bot", "v0", "ai", "web-development"],
+  "author": "Your Name",
+  "license": "MIT"
+}
